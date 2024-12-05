@@ -11,21 +11,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.test.dagger2.dagger_classes.Car
+import com.test.dagger2.dagger_classes.DaggerDaggerComponent
 import com.test.dagger2.ui.theme.Dagger2Theme
+import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var car: Car
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Dagger2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            DaggerDaggerComponent.create().inject(this)
         }
     }
 }
